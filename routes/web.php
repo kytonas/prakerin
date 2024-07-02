@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\IsAdmin;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.backend');
+    return view('layouts.frontend');
 });
+
+// Route::get('/vote', function () {
+//     return view('layouts.frontend');
+// });
+
+// Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], function () {
+//     Route::get('/', function () {
+//         return view('layouts.backend');
+//     });
+//     // untuk Route Backend Lainnya
+// });
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], function () {
+    Route::resource('user', UserController::class);
+});
+
+
+
 
 Auth::routes();
 

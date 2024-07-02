@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'isAdmin'
     ];
 
     /**
@@ -38,7 +39,12 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return[
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+   
 }
